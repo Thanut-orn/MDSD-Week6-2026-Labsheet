@@ -77,17 +77,27 @@ https://api.openweathermap.org/data/2.5/weather?q=Bangkok&appid=YOUR_API_KEY&uni
 
 > ✅ **Checkpoint 1.1** ถ่ายภาพหน้าจอ Postman ที่แสดง Status Code `200` พร้อม Response Body แบบเต็ม จากนั้นให้เขียนระบุใน ว่า key ใดใน JSON ที่คาดว่าจะต้องใช้แสดงผลในแอป (เช่น ชื่อเมือง, อุณหภูมิ, คำอธิบายสภาพอากาศ)
 
-```text
-บันทึกรูปและคำตอบที่นี่
+<img width="1565" height="818" alt="image" src="https://github.com/user-attachments/assets/332f3998-0f48-4c54-974e-65afeb6e4c13" />
+<img width="1571" height="385" alt="image" src="https://github.com/user-attachments/assets/7bb97ea1-6076-43dc-a311-16616f66ef5a" />
+
 ```
+ชื่อเมือง: ใช้ Key name
+อุณหภูมิ: ใช้ Key temp
+คำอธิบายสภาพอากาศ: ใช้ Key description
+```
+
 ### ขั้นตอนที่ 1.2 — 🧠 คิดเอง/ออกแบบเอง
 
 ออกแบบการทดสอบกรณีผิดพลาด (error case) อย่างน้อย 1 กรณี โดยเปลี่ยนค่าพารามิเตอร์บางตัวใน Request ให้เป็นสิ่งที่คาดว่าจะทำให้เซิร์ฟเวอร์ตอบกลับด้วย error (ตัวอย่างแนวทางที่เลือกได้ เช่น เปลี่ยนชื่อเมืองเป็นชื่อที่ไม่มีอยู่จริง, ใส่ `appid` ผิด, หรือลบ `appid` ออกไปเลย) **ก่อนกด Send ให้เขียนคาดการณ์ ก่อนว่า นักศึกษาคิดว่า Status Code จะเป็นอะไร** แล้วจึงทดสอบจริงเพื่อเทียบกับที่คาดไว้
 
 > ✅ **Checkpoint 1.2** บันทึกด้านล่างว่านักศึกษาเลือกทดสอบกรณีใด คาดการณ์ Status Code ไว้ว่าอะไร และ Status Code จริงที่ได้คืออะไร (ตรงหรือไม่ตรงกับที่คาดไว้) พร้อมอธิบายว่าผลลัพธ์ที่ได้ตรงกับช่วง Status Code ใดตามตารางในบทเรียนหัวข้อ 6.3
 
-```text
-บันทึกรูปและคำตอบที่นี่
+<img width="1568" height="960" alt="image" src="https://github.com/user-attachments/assets/809a7d6d-56e7-47f4-866f-1d4678462f0e" />
+```
+- กรณีที่เลือกทดสอบ: ทดสอบใส่พารามิเตอร์ appid (API Key) ผิดพลาด โดยการลบตัวอักษรออกบางส่วน
+- คาดการณ์ Status Code: คาดว่าน่าจะได้ 401 (Unauthorized)
+- Status Code จริงที่ได้: ได้ 401 Unauthorized
+- ผลลัพธ์ที่ได้ตรงกับรหัส 401 (Unauthorized) ตามตารางในบทเรียน ซึ่งมีตัวอย่างสถานการณ์คือ "ไม่ได้ล็อกอิน/ไม่มีสิทธิ์" สาเหตุเพราะข้อมูล API Key ของเราไม่ถูกต้อง เซิร์ฟเวอร์จึงไม่อนุญาตให้เราเข้าถึงทรัพยากรและตอบกลับมาเป็น Error 401
 ```
 ---
 
@@ -182,9 +192,9 @@ void main() {
 
 > ✅ **Checkpoint 2.1** รันไฟล์ทดสอบข้างต้น สังเกตค่าทั้ง 4 ฟิลด์ที่ `print()` ออกมาใน Debug Console ว่าตรงกับ Response Body จริงจาก Postman หรือไม่ ถ่ายภาพหน้าจอ Debug Console ที่แสดงว่าค่าทั้ง 4 ฟิลด์ถูกต้องตรงกับ JSON จริง
 
-```text
-บันทึกรูปที่นี่
-```
+<img width="760" height="148" alt="image" src="https://github.com/user-attachments/assets/57981269-c7f9-44fa-90c2-3ceda62da421" />
+
+
 ### ขั้นตอนที่ 2.3 — 🧠 คิดเอง/ออกแบบเอง
 
 สร้างไฟล์ `lib/services/weather_service.dart` แล้วเขียน `WeatherService` ต่อจากตัวอย่างโครงเริ่มต้นด้านล่างนี้  
@@ -232,9 +242,10 @@ class WeatherService {
 
 > ✅ **Checkpoint 2.2** บันทึกผลการตรวจสอบ `statusCode` อย่างน้อย 2 กรณี (สำเร็จ และ 404) ตามเกณฑ์ข้างต้น
 
-```text
-บันทึกรูปและคำตอบที่นี่
-```
+<img width="763" height="200" alt="image" src="https://github.com/user-attachments/assets/cf3eeb51-4f85-45e8-a979-90365720ad2e" />
+<img width="768" height="126" alt="image" src="https://github.com/user-attachments/assets/8d37740f-cc3d-4c32-81b8-0205d9c73514" />
+
+
 
 ### ขั้นตอนที่ 2.4 — 🧠 คิดเอง/ออกแบบเอง
 
@@ -351,9 +362,10 @@ class MyApp extends StatelessWidget {
 
 > ✅ **Checkpoint 2.3** รันแอปแล้วทดสอบทั้ง 3 สถานการณ์ คือ (1) ค้นหาเมืองที่มีจริง (2) ค้นหาเมืองที่ไม่มีอยู่จริง (3) ปิด Wi-Fi/Data บนเครื่องแล้วลองค้นหา ถ่ายภาพหน้าจอทั้ง 3 กรณี
 
-```text
-บันทึกรูปที่นี่
-```
+<img width="1292" height="986" alt="image" src="https://github.com/user-attachments/assets/d272d02f-197e-49e7-9d5b-d19f06ccc2dc" />
+<img width="1295" height="981" alt="image" src="https://github.com/user-attachments/assets/08e29152-ee26-48d5-89fd-9f2a784ea1ae" />
+<img width="1917" height="1016" alt="image" src="https://github.com/user-attachments/assets/c44bef8a-3e5a-4d2c-8812-95f642ebdcf6" />
+
 
 ---
 
