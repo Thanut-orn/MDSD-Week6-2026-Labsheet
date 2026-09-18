@@ -414,9 +414,9 @@ ElevatedButton(
 จากนั้นรันแอป กดปุ่มนี้ แล้วดูผลลัพธ์ใน Debug Console (ปุ่มนี้เป็นแค่ปุ่มทดลองชั่วคราว ไม่ต้องมีการจัดการ Loading/Error ใด ๆ ต่างจากปุ่ม "ค้นหา" หลักของหน้า)
 
 > ✅ **Checkpoint 3.1** ถ่ายภาพหน้าจอ Debug Console ที่แสดง Status Code (ควรเป็น `201 Created`) พร้อม Response Body 
-```text
-บันทึกรูปและคำตอบที่นี่
-```
+
+<img width="572" height="187" alt="image" src="https://github.com/user-attachments/assets/7b5f7de3-8cf8-4557-88f3-85a9f1896ad0" />
+
 
 ### ขั้นตอนที่ 3.2 — 🧠 คิดเอง/ออกแบบเอง
 
@@ -441,9 +441,8 @@ Future<void> updateDemoPost() async {
 
 > ✅ **Checkpoint 3.2** ถ่ายภาพหน้าจอ Debug Console ที่แสดง Status Code ของการเรียก PUT (ควรเป็น `200 OK`) 
 
-```text
-บันทึกรูปและคำตอบที่นี่
-```
+<img width="832" height="187" alt="image" src="https://github.com/user-attachments/assets/31829d03-45da-4a01-ab4b-3d341467510c" />
+
 ---
 
 ## ส่วนที่ 4: ใช้ AI ช่วย Generate โค้ด API Client
@@ -496,9 +495,9 @@ GET https://fakestoreapi.com/products
 ```
 
 > ✅ **Checkpoint 4.2** ถ่ายภาพหน้าจอ Debug Console ที่แสดงผลลัพธ์จริงจากการเรียก `fetchAiProducts()` (เช่น รายการสินค้าที่ print ออกมา) 
-```text
-บันทึกรูปที่นี่
-```
+
+<img width="697" height="341" alt="image" src="https://github.com/user-attachments/assets/2740ce2e-df92-4eae-9b35-359d8b3bc992" />
+
 
 ---
 
@@ -557,9 +556,10 @@ Future<Weather> fetchWeatherWithDio(String city) async {
 2. รูปแบบการเขียน query parameters (`queryParameters: {...}`) ต่างจากการต่อ string URL เองแบบที่ทำใน `WeatherService` (ขั้นตอนที่ 2.3) 
 
 > ✅ **Checkpoint 5.1** ถ่ายภาพหน้าจอ Debug Console ที่แสดงผลลัพธ์จริงจากการเรียก `fetchWeatherWithDio()` (ค่าทั้ง 4 ฟิลด์ของ `Weather` ที่ print ออกมา หรือแสดงผลบนหน้าจอถ้าเลือกแบบที่ 2)
-```text
-บันทึกรูปที่นี่
-```
+
+<img width="796" height="240" alt="image" src="https://github.com/user-attachments/assets/ab9a7483-47df-4e94-8fe6-c8afc17aa401" />
+
+
 ### ขั้นตอนที่ 5.4 — 🧠 คิดเอง/ออกแบบเอง
 
 `DioException` มีหลายชนิด (`DioExceptionType`) แต่โค้ดในขั้นตอนที่ 5.2 จัดการเฉพาะ `connectionTimeout` ด้านล่างเป็นตัวอย่างการเพิ่มเงื่อนไขให้อีก 1 ชนิด (`badResponse`) ให้ดูเป็นแนวทาง จากนั้นให้เพิ่มเงื่อนไข `else if` อีกอย่างน้อย 1 ชนิดด้วยตัวเอง โดยเลือกจาก `DioExceptionType.receiveTimeout` หรือ `DioExceptionType.connectionError` (ห้ามซ้ำกับ `badResponse` ที่ให้เป็นตัวอย่างแล้ว) พร้อมข้อความแจ้งเตือนภาษาไทยที่เหมาะสมกับสาเหตุนั้นโดยเฉพาะ (ค้นคว้าความหมายของแต่ละชนิดได้จากเอกสารของแพ็กเกจ `dio` บน pub.dev)
@@ -581,13 +581,23 @@ Future<Weather> fetchWeatherWithDio(String city) async {
 > ✅ **Checkpoint 5.2** เปรียบเทียบสั้น ๆ ระหว่าง `http` กับ `dio` อย่างน้อย 3 ประเด็น โดยอ้างอิงจากสิ่งที่สังเกตได้จริงตอนทดลองในขั้นตอนที่ 5.3 เช่น การแปลง JSON อัตโนมัติ, การกำหนด Query Parameters, และรูปแบบการจัดการ Exception (`DioException` เทียบกับการดักจับหลายชนิดแยกกันแบบ `http`)
 
 ```text
-บันทึกคำตอบที่นี่
+- การแปลงข้อมูล JSON: แพ็กเกจ http จะคืนค่ากลับมาเป็น String ทำให้เราต้องเรียกใช้ฟังก์ชัน jsonDecode() เองก่อนนำไปใช้งาน แต่ dio จะจัดการแปลง JSON เป็นออบเจกต์ Map ให้เราอัตโนมัติผ่าน response.data ทำให้โค้ดสั้นและลดข้อผิดพลาดได้
+
+- การจัดการ Query Parameters: ในการใช้ http เราต้องนำตัวแปรไปต่อสตริง URL เอง (เช่น ?q=$city&appid=$key) ซึ่งอ่านยากและมีโอกาสพิมพ์เครื่องหมายผิดพลาดสูง แต่ dio อนุญาตให้เราส่งค่าผ่านพารามิเตอร์ queryParameters: {...} ในรูปแบบ Map ได้เลย ทำให้โค้ดอ่านง่ายและเป็นระเบียบกว่ามาก
+
+- การดักจับข้อผิดพลาด (Exception Handling): http ต้องแยกดักจับ Exception หลายชนิดที่มาจากต่างแพ็กเกจกัน (เช่น TimeoutException, ClientException, FormatException) แต่ dio รวมข้อผิดพลาดเกี่ยวกับการเชื่อมต่อทั้งหมดไว้ภายใต้ DioException ตัวเดียว ทำให้เราสามารถเช็คสาเหตุของ Error ได้ง่ายๆ ผ่าน e.type (เช่น connectionTimeout, connectionError, badResponse) ภายใน catch block เดียว
 ```
 >
 > ✅ **Checkpoint 5.3** แสดงโค้ดเงื่อนไข `DioExceptionType` เพิ่มเติมที่เขียนเองในขั้นตอนที่ 5.4 
 
-```text
-บันทึกคำตอบที่นี่
+```dart
+} else if (e.type == DioExceptionType.connectionError) {
+  // เพิ่มเงื่อนไข: กรณีไม่ได้ต่อเน็ต หรือเน็ตหลุด
+  throw Exception('ไม่สามารถเชื่อมต่ออินเทอร์เน็ตได้ กรุณาตรวจสอบสัญญาณของคุณ');
+} else if (e.type == DioExceptionType.receiveTimeout) {
+  // เพิ่มเงื่อนไข: กรณีเซิร์ฟเวอร์ใช้เวลาส่งข้อมูลกลับมานานเกินไป
+  throw Exception('เซิร์ฟเวอร์ใช้เวลาส่งข้อมูลนานเกินไป กรุณาลองใหม่อีกครั้ง');
+}
 ```
 ---
 
